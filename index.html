@@ -1,45 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Concierge IA — seu copiloto de locação de temporada</title>
-<meta name="description" content="Demo de concierge com IA para anfitriões Airbnb/Booking no litoral. Satélite da rede praia.digital">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concierge IA para Anfitriões | Praia Digital</title>
+<meta name="description" content="Gerador inteligente de mensagens de boas-vindas, check-in e pedido de avaliação para locação de temporada. Satélite de praia.digital.">
 <style>
-body{margin:0;font-family:system-ui,sans-serif;background:#f0f9ff;color:#0c3547;display:flex;flex-direction:column;min-height:100vh}
-header{padding:20px;text-align:center;background:linear-gradient(120deg,#0077b6,#00b4d8);color:#fff}
-nav a{color:#ffd166;margin:0 8px;text-decoration:none;font-size:14px}
-.chat{max-width:640px;width:100%;margin:auto;flex:1;padding:16px;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:80%;padding:12px 16px;border-radius:18px;line-height:1.4}
-.bot{background:#fff;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.user{background:#0077b6;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px;justify-content:center}
-.chips button{border:1px solid #0077b6;background:#fff;color:#0077b6;border-radius:99px;padding:8px 14px;cursor:pointer}
-.input{display:flex;gap:8px;padding:16px;max-width:640px;width:100%;margin:0 auto}
-.input input{flex:1;padding:12px;border-radius:99px;border:1px solid #90e0ef;font-size:16px}
-.input button{background:#0077b6;color:#fff;border:none;border-radius:99px;padding:0 22px;font-size:16px;cursor:pointer}
-footer{padding:14px;text-align:center;font-size:13px}
-footer a{color:#0077b6}
-</style></head>
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f8fafc;color:#0f172a;line-height:1.6}
+.hero{background:linear-gradient(135deg,#7c2d12,#ea580c);color:#fff;padding:50px 20px;text-align:center}
+.container{max-width:1000px;margin:0 auto;padding:30px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.cta{display:inline-block;background:#fff;color:#0c4a6e;padding:10px 22px;border-radius:8px;text-decoration:none;font-weight:700;margin:6px}
+button{background:#0284c7;color:#fff;border:none;padding:10px 18px;border-radius:8px;font-weight:700;cursor:pointer}
+input,select,textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin:6px 0;font-family:inherit}
+footer{text-align:center;padding:24px;color:#64748b;font-size:.9em}
+.bar{height:14px;border-radius:7px;background:linear-gradient(90deg,#0ea5e9,#0369a1)}
+</style>
+</head>
 <body>
-<header><h1>🤖 Concierge IA</h1><p>Copiloto para anfitriões de temporada — demo da rede praia.digital</p>
-<nav><a href="https://praia.digital">Praia Digital</a><a href="https://praia.digital/area-anfitriao">Área do Anfitrião</a><a href="https://praia.digital/gerador-descricoes">Gerador de Descrições</a><a href="https://praia.digital/apps">Todos os apps</a></nav></header>
-<div class="chat" id="chat"><div class="msg bot">Olá! Sou o Concierge IA do anfitrião 🏖️ Pergunte sobre check-in, precificação, limpeza ou o que fazer no litoral.</div></div>
-<div class="chips"><button onclick="ask('Como precificar no Réveillon?')">💰 Réveillon</button><button onclick="ask('Mensagem de boas-vindas')">👋 Boas-vindas</button><button onclick="ask('Checklist de limpeza')">🧹 Limpeza</button><button onclick="ask('O que fazer em Santos?')">🗺️ Dicas locais</button></div>
-<div class="input"><input id="in" placeholder="Digite sua pergunta..." onkeydown="if(event.key==='Enter')go()"><button onclick="go()">➤</button></div>
-<footer>Rede <a href="https://praia.digital">praia.digital</a> · <a href="https://praia.digital/hermes-agents">Hermes Agents</a> · <a href="https://praia.digital/ferramentas">Ferramentas</a> · <a href="https://praia.digital/marea">Maréa</a></footer>
+<nav style="background:#0c4a6e;padding:12px 20px;display:flex;gap:14px;flex-wrap:wrap;font-family:system-ui,sans-serif">
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praia.digital/">🌊 Praia Digital</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/apps/">Hub</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/hermes-agents/">Hermes Agents</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/area-anfitriao/">Anfitrião</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/simulador-roi/">ROI</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/simulador-credito/">Crédito</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/guia-litoral/">Guia</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/blog-litoral/">Blog</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/calculadoras/">Calculadoras</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/newsletter-litoral/">Newsletter</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/eventos-litoral/">Eventos</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/radar-precos/">Radar</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/concierge-ia/">Concierge IA</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/mapa-investidor/">Mapa</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/checklist-anfitriao/">Checklist</a>
+</nav>
+<div class="hero"><h1>🤖 Concierge IA</h1><p>Gere mensagens profissionais de hospedagem em segundos — boas-vindas, check-in, regras da casa e pedido de avaliação.</p></div>
+<div class="container"><div class="grid">
+<div class="card"><h3>1️⃣ Seus dados</h3>
+<label>Nome do hóspede</label><input id="hospede" value="Maria">
+<label>Seu nome / imóvel</label><input id="anfitriao" value="Apartamento Vista Mar — Guarujá">
+<label>Data de check-in</label><input id="checkin" value="20/12/2026 às 14h">
+<label>Data de check-out</label><input id="checkout" value="27/12/2026 às 11h">
+<label>Senha do Wi-Fi</label><input id="wifi" value="praia2026">
+<label>Tipo de mensagem</label><select id="tipo"><option value="boasvindas">Boas-vindas</option><option value="checkin">Instruções de check-in</option><option value="avaliacao">Pedido de avaliação</option></select>
+<button onclick="gerar()">✨ Gerar mensagem</button></div>
+<div class="card"><h3>2️⃣ Mensagem pronta</h3><textarea id="saida" rows="14" readonly></textarea><button onclick="copiar()">📋 Copiar</button></div>
+</div>
+<div class="card"><h3>💡 Automatize de verdade</h3><p>O Concierge IA gera os textos — os <a href="https://praiadigital.github.io/hermes-agents/">Hermes Agents</a> enviam sozinho no momento certo. E para gerir a operação completa, conheça a <a href="https://praiadigital.github.io/area-anfitriao/">Área do Anfitrião</a>.</p></div>
+</div>
 <script>
-const R={
-reveillon:'🎆 No Réveillon o litoral atinge 95-100% de ocupação. Sugestão: multiplicador 3.5–5x sobre a diária base, mínimo de 4 noites e caução reforçada. Veja a sazonalidade completa no app Maréa: praia.digital/marea',
-boas:'👋 Modelo: "Olá {nome}! Seja bem-vindo(a) ao nosso cantinho na praia 🌊 O Wi-Fi é {rede}/{senha}, o check-in é self-service às 14h. Qualquer coisa, estou a uma mensagem de distância!" — gere versões completas no Gerador de Descrições: praia.digital/gerador-descricoes',
-limpeza:'🧹 Checklist expresso: roupa de cama e banho, banheiros, cozinha e geladeira, areia nos pisos, varanda, reposição de itens (papel, sabão, café) e fotos de controle pós-limpeza.',
-santos:'🗺️ Em Santos: orla e jardins da praia, teleférico do Morro de São Vicente, Museu do Café, Aquário, e pôr do sol na Ponta da Praia. Dica extra no Guia do Litoral: praia.digital/guia-litoral'};
-function add(t,who){const d=document.createElement('div');d.className='msg '+who;d.textContent=t;const c=document.getElementById('chat');c.appendChild(d);c.scrollTop=c.scrollHeight;}
-function answer(q){q=q.toLowerCase();
-if(q.includes('réveillon')||q.includes('reveillon')||q.includes('preço')||q.includes('precif'))return R.reveillon;
-if(q.includes('bem-vindo')||q.includes('boas'))return R.boas;
-if(q.includes('limpeza'))return R.limpeza;
-if(q.includes('santos')||q.includes('fazer'))return R.santos;
-return 'Posso ajudar com precificação sazonal, mensagens para hóspedes, checklists e dicas locais. Experimente um dos atalhos acima! Para automação completa com agentes, conheça praia.digital/hermes-agents 🚀';}
-function ask(q){add(q,'user');setTimeout(()=>add(answer(q),'bot'),500);}
-function go(){const i=document.getElementById('in');if(!i.value)return;ask(i.value);i.value='';}
-</script></body></html>
+function gerar(){
+const h=document.getElementById('hospede').value,a=document.getElementById('anfitriao').value,ci=document.getElementById('checkin').value,co=document.getElementById('checkout').value,w=document.getElementById('wifi').value,t=document.getElementById('tipo').value;
+let m='';
+if(t==='boasvindas')m=`Olá ${h}! 🌊\n\nSeja muito bem-vindo(a) ao ${a}! É um prazer recebê-lo(a).\n\n📅 Check-in: ${ci}\n📅 Check-out: ${co}\n📶 Wi-Fi: ${w}\n\nQualquer necessidade, estou à disposição. Aproveite cada momento no litoral!\n\nUm abraço,\nEquipe ${a}`;
+else if(t==='checkin')m=`Olá ${h}! Tudo certo para sua chegada? 🗝️\n\nInstruções de check-in — ${a}:\n\n1️⃣ Chegada: ${ci}\n2️⃣ Retire as chaves no cofre de chaves ao lado da porta (código enviado no dia)\n3️⃣ Wi-Fi: ${w}\n4️⃣ Em caso de qualquer imprevisto, me chame por aqui\n\nCheck-out: ${co}.\n\nÓtima estadia! 🏖️`;
+else m=`Olá ${h}! ⭐\n\nEsperamos que sua estadia no ${a} tenha sido incrível!\n\nSua avaliação é muito importante para nós e ajuda outros viajantes. Poderia deixar um comentário sobre sua experiência? Leva menos de 1 minuto.\n\nObrigado e até a próxima! 🌊\nEquipe ${a}`;
+document.getElementById('saida').value=m;
+}
+function copiar(){const s=document.getElementById('saida');s.select();document.execCommand('copy');alert('Mensagem copiada! ✅');}
+gerar();
+</script>
+<footer>© Praia Digital — 2026 — Satélite da rede <a href="https://praia.digital">praia.digital</a> · <a href="https://praiadigital.github.io/apps/">Ver todos os apps</a></footer>
+</body>
+</html>

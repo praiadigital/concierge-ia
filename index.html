@@ -1,3 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Concierge IA — mensagens prontas para anfitriões | Praia Digital</title><meta name="description" content="Gerador de mensagens de concierge para anfitriões de temporada: check-in, boas-vindas, regras e avaliação."><link rel="canonical" href="https://praia.digital/concierge-ia/"><style>body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f8fafc;color:#0f172a;line-height:1.6}.hero{background:linear-gradient(135deg,#0c4a6e,#0ea5e9);color:#fff;padding:60px 20px;text-align:center}.container{max-width:780px;margin:auto;padding:30px 20px}.card{background:#fff;border-radius:13px;padding:24px;margin-bottom:16px;box-shadow:0 3px 10px #0001}label{display:block;font-weight:600;margin:12px 0 4px}input,select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:1rem;box-sizing:border-box}button{background:#0ea5e9;color:#fff;border:0;padding:14px 28px;border-radius:10px;font-size:1.1rem;font-weight:700;cursor:pointer;width:100%;margin-top:16px}textarea{width:100%;min-height:220px;padding:14px;border:1px solid #cbd5e1;border-radius:10px;font-size:.95rem;box-sizing:border-box}a.app{color:#0c4a6e;font-weight:600}footer{text-align:center;padding:24px;color:#64748b}</style></head><body><header class="hero"><h1>🤖 Concierge IA</h1><p>Mensagens profissionais de anfitrião em segundos — check-in, boas-vindas, regras e avaliação.</p></header><main class="container"><div class="card"><label>Nome do imóvel</label><input id="nome" value="Apartamento Vista Mar"><label>Cidade</label><input id="cidade" value="Guarujá"><label>Tipo de mensagem</label><select id="tipo"><option value="boasvindas">Boas-vindas (após reserva)</option><option value="checkin">Instruções de check-in</option><option value="regras">Regras da casa</option><option value="checkout">Check-out e avaliação</option></select><button onclick="gerar()">Gerar mensagem</button></div><div class="card" id="out" style="display:none"><textarea id="msg" readonly></textarea><button onclick="navigator.clipboard.writeText(document.getElementById('msg').value);this.textContent='✅ Copiado!'">Copiar mensagem</button></div><div class="card"><strong>Complete a gestão:</strong><br>🔑 <a class="app" href="https://praia.digital/area-anfitriao/">Área do Anfitrião</a> — gestão completa<br>✅ <a class="app" href="https://praia.digital/checklist-anfitriao/">Checklist do Anfitrião</a> — nada esquecido<br>✍️ <a class="app" href="https://praia.digital/gerador-descricoes/">Gerador de Descrições</a> — anúncio campeão</div></main><footer><a class="app" href="https://praia.digital/apps/">🌐 Apps Praia Digital</a> · <a class="app" href="https://praia.digital/">praia.digital</a></footer><script>function gerar(){var n=document.getElementById('nome').value,c=document.getElementById('cidade').value,t=document.getElementById('tipo').value;var m={boasvindas:'Olá! 🌊 Seja muito bem-vindo(a) ao '+n+' em '+c+'!\n\nSua reserva está confirmada e já estamos preparando tudo com carinho. Em breve enviarei as instruções de check-in.\n\nEnquanto isso, dicas rápidas de '+c+': chegue cedo nos fins de semana (o trânsito da descida é intenso) e aproveite o pôr do sol na praia!\n\nQualquer dúvida, estou à disposição. 😊',checkin:'Check-in do '+n+' 🗝️\n\n📍 Endereço: [endereço completo]\n🕒 Horário: a partir das 15h\n🔐 Acesso: [porteira/lockbox/smart lock — código enviado no dia]\n🚗 Vaga de garagem: [número]\n\nAo chegar, me envie uma mensagem para confirmar. Bem-vindo(a) a '+c+'!',regras:'Regras do '+n+' 🏖️\n\n1. Check-in 15h · Check-out 11h\n2. Proibido fumar dentro do imóvel\n3. Silêncio após 22h (lei do condomínio)\n4. Não levar móveis/utensílios para a praia\n5. Churrasqueira: limpar após o uso\n\nObrigado por cuidar do nosso cantinho em '+c+'! 💙',checkout:'Foi um prazer recebê-lo(a) no '+n+'! 🌟\n\nCheck-out até 11h: deixe as chaves [local], desligue o ar-condicionado e feche as janelas.\n\nSe puder, sua avaliação 5 estrelas ajuda muito! E volte sempre a '+c+' — temos condições especiais para hóspedes que retornam. 😊'};document.getElementById('out').style.display='block';document.getElementById('msg').value=m[t];}</script></body></html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concierge IA — Assistente virtual para hóspedes de temporada | Praia Digital</title>
+<meta name="description" content="Concierge de IA para imóveis de temporada: responde hóspedes 24h, envia instruções de check-in, dicas locais e resolve problemas — direto no WhatsApp.">
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f5f3ff;color:#3730a3;line-height:1.6}
+nav{background:#4338ca;padding:12px 20px;display:flex;gap:14px;flex-wrap:wrap}
+nav a{color:#e0e7ff;text-decoration:none;font-weight:600}
+nav a:hover{color:#fff}
+.hero{background:linear-gradient(135deg,#4338ca,#6366f1);color:#fff;padding:50px 20px;text-align:center}
+.container{max-width:720px;margin:0 auto;padding:30px 20px}
+.card{background:#fff;border-radius:12px;padding:24px;margin:16px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.chat{background:#f5f3ff;border-radius:12px;padding:16px;min-height:180px}
+.msg{max-width:80%;padding:10px 14px;border-radius:14px;margin:8px 0}
+.bot{background:#e0e7ff;color:#3730a3}
+.user{background:#6366f1;color:#fff;margin-left:auto}
+.row{display:flex;gap:8px;margin-top:12px}
+input{flex:1;padding:12px;border:1px solid #c7d2fe;border-radius:8px}
+button{background:#6366f1;color:#fff;border:0;padding:12px 20px;border-radius:8px;font-weight:700;cursor:pointer}
+.cta{display:inline-block;background:#6366f1;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;margin:6px 6px 6px 0}
+footer{text-align:center;padding:24px;color:#64748b;font-size:.9em}
+</style>
+</head>
+<body>
+<nav>
+<a href="https://praia.digital/">🌊 Praia Digital</a>
+<a href="https://praiadigital.github.io/apps/">🗂️ Apps</a>
+<a href="https://praiadigital.github.io/radar-preco-m2/">Radar m²</a>
+<a href="https://praiadigital.github.io/match-imoveis/">Match Imóveis</a>
+<a href="https://praiadigital.github.io/precificador-temporada/">Precificador</a>
+<a href="https://praiadigital.github.io/concierge-ia/">Concierge IA</a>
+</nav>
+<div class="hero">
+<h1>🤖 Concierge IA para Temporada</h1>
+<p>Seu hóspede atendido em segundos, 24h por dia — check-in, Wi-Fi, dicas de praia e emergências. Experimente a demo abaixo!</p>
+</div>
+<div class="container">
+<div class="card">
+<h2>Demo: converse com o concierge</h2>
+<div class="chat" id="chat">
+<div class="msg bot">Olá! Sou o concierge do seu imóvel 🏖️ Pergunte sobre check-in, Wi-Fi, churrasqueira, praias ou restaurantes.</div>
+</div>
+<div class="row">
+<input id="inp" placeholder="Ex: qual a senha do wi-fi?" onkeydown="if(event.key=='Enter')ask()">
+<button onclick="ask()">Enviar</button>
+</div>
+</div>
+<div class="card">
+<h2>O que o Concierge IA faz pelo anfitrião</h2>
+<ul>
+<li>🔑 Envia instruções de check-in e código da fechadura automaticamente</li>
+<li>📶 Responde dúvidas frequentes (Wi-Fi, churrasqueira, regras da casa)</li>
+<li>🍽️ Recomenda praias, restaurantes e passeios por cidade</li>
+<li>🚨 Escala emergências para você só quando necessário</li>
+</ul>
+<p>Funciona sobre os <a href="https://praiadigital.github.io/hermes-agents/">Hermes Agents</a> — com memória, multi-canal e supervisão humana.</p>
+<a class="cta" href="mailto:comercial@praia.digital?subject=Quero%20o%20Concierge%20IA">Quero no meu imóvel</a>
+<a class="cta" href="https://praiadigital.github.io/area-anfitriao/">Ver Área do Anfitrião</a>
+</div>
+</div>
+<footer>Parte da rede <a href="https://praia.digital/">praia.digital</a> · <a href="https://praiadigital.github.io/apps/">Todos os apps</a></footer>
+<script>
+const kb=[
+[/wi-?fi|internet|senha/i,'📶 Wi-Fi: rede "PraiaGuest_5G", senha: <strong>bemvindo2026</strong>. O roteador fica na sala, atrás da TV.'],
+[/check-?in|chegada|entrada|chave/i,'🔑 Check-in a partir das 14h: a fechadura eletrônica usa o código enviado no seu WhatsApp. Estacionamento: vaga 12, subsolo.'],
+[/check-?out|saída/i,'🧳 Check-out até 11h. Deixe as chaves na mesa e feche a porta — ela trava sozinha.'],
+[/churras/i,'🍖 A churrasqueira da área comum exige reserva no app do condomínio (menu "Reservas"). Carvão está no armário da varanda.'],
+[/praia|mar|praiana/i,'🏖️ A praia mais próxima fica a 300m (saída pela portaria dos fundos). Quiosque recomendado: "Maré Alta", nº 42.'],
+[/restaurante|comer|comida|pizza/i,'🍽️ Perto daí: Cantina do Mar (frutos do mar), Pizzaria Onda (delivery 13 99999-0000) e o café Sunrise abre 7h.'],
+[/emerg|problema|vazamento|luz|água/i,'🚨 Sinto muito! Já notifiquei o anfitrião e o zelador (Sr. Paulo). Emergências: SAMU 192, Bombeiros 193.'],
+[/farmácia|mercado|hospital/i,'🏪 Mercado PraiaFácil (24h, 400m), farmácia DrogMar (200m) e UPA a 8 min de carro.']
+];
+function ask(){
+const el=document.getElementById('inp'),t=el.value.trim();if(!t)return;
+const c=document.getElementById('chat');
+c.innerHTML+=`<div class="msg user">${t}</div>`;el.value='';
+const hit=kb.find(([r])=>r.test(t));
+setTimeout(()=>{c.innerHTML+=`<div class="msg bot">${hit?hit[1]:'Boa pergunta! Encaminhei ao anfitrião, que responde em instantes. Enquanto isso, posso ajudar com Wi-Fi, check-in, praias ou restaurantes? 😊'}`;c.scrollTop=c.scrollHeight;},400);
+}
+</script>
+</body>
+</html>

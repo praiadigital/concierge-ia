@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Concierge IA — Assistente virtual para hóspedes de temporada | Praia Digital</title>
-<meta name="description" content="Concierge de IA para imóveis de temporada: responde hóspedes 24h, envia instruções de check-in, dicas locais e resolve problemas — direto no WhatsApp.">
+<title>Concierge IA — Pergunte Sobre Imóveis no Litoral | Praia Digital</title>
+<meta name="description" content="Pergunte em linguagem natural sobre imóveis, bairros, financiamento e temporada no litoral paulista — demonstração do assistente IA da Praia Digital.">
 <style>
-body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f5f3ff;color:#3730a3;line-height:1.6}
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#eef2ff;color:#312e81;line-height:1.6}
 nav{background:#4338ca;padding:12px 20px;display:flex;gap:14px;flex-wrap:wrap}
-nav a{color:#e0e7ff;text-decoration:none;font-weight:600}
+nav a{color:#c7d2fe;text-decoration:none;font-weight:600;font-size:.95em}
 nav a:hover{color:#fff}
 .hero{background:linear-gradient(135deg,#4338ca,#6366f1);color:#fff;padding:50px 20px;text-align:center}
-.container{max-width:720px;margin:0 auto;padding:30px 20px}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
 .card{background:#fff;border-radius:12px;padding:24px;margin:16px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.chat{background:#f5f3ff;border-radius:12px;padding:16px;min-height:180px}
-.msg{max-width:80%;padding:10px 14px;border-radius:14px;margin:8px 0}
-.bot{background:#e0e7ff;color:#3730a3}
-.user{background:#6366f1;color:#fff;margin-left:auto}
-.row{display:flex;gap:8px;margin-top:12px}
-input{flex:1;padding:12px;border:1px solid #c7d2fe;border-radius:8px}
-button{background:#6366f1;color:#fff;border:0;padding:12px 20px;border-radius:8px;font-weight:700;cursor:pointer}
-.cta{display:inline-block;background:#6366f1;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;margin:6px 6px 6px 0}
+.chip{display:inline-block;background:#e0e7ff;color:#4338ca;border-radius:999px;padding:6px 14px;margin:4px;cursor:pointer;font-size:.9em}
+.chip:hover{background:#c7d2fe}
+#chat{border:1px solid #c7d2fe;border-radius:10px;padding:16px;min-height:180px;background:#fafaff;margin:12px 0}
+.msg{margin:10px 0;padding:10px 14px;border-radius:12px;max-width:85%}
+.user{background:#4338ca;color:#fff;margin-left:auto}
+.bot{background:#e0e7ff;color:#312e81}
+input{width:100%;padding:12px;border-radius:8px;border:1px solid #c7d2fe;box-sizing:border-box}
+button{background:#4f46e5;color:#fff;border:0;padding:12px 24px;border-radius:8px;font-weight:700;cursor:pointer;margin-top:8px}
 footer{text-align:center;padding:24px;color:#64748b;font-size:.9em}
 </style>
 </head>
@@ -28,58 +28,48 @@ footer{text-align:center;padding:24px;color:#64748b;font-size:.9em}
 <nav>
 <a href="https://praia.digital/">🌊 Praia Digital</a>
 <a href="https://praiadigital.github.io/apps/">🗂️ Apps</a>
-<a href="https://praiadigital.github.io/radar-preco-m2/">Radar m²</a>
-<a href="https://praiadigital.github.io/match-imoveis/">Match Imóveis</a>
-<a href="https://praiadigital.github.io/precificador-temporada/">Precificador</a>
+<a href="https://praiadigital.github.io/radar-m2/">Radar m²</a>
+<a href="https://praiadigital.github.io/match-imobiliario/">Match Imobiliário</a>
 <a href="https://praiadigital.github.io/concierge-ia/">Concierge IA</a>
+<a href="https://praiadigital.github.io/hermes-agents/">Hermes Agents</a>
 </nav>
 <div class="hero">
-<h1>🤖 Concierge IA para Temporada</h1>
-<p>Seu hóspede atendido em segundos, 24h por dia — check-in, Wi-Fi, dicas de praia e emergências. Experimente a demo abaixo!</p>
+<h1>🧠 Concierge IA</h1>
+<p>Pergunte sobre imóveis, bairros ou financiamento no litoral — a demo do assistente da Praia Digital responde na hora.</p>
 </div>
 <div class="container">
 <div class="card">
-<h2>Demo: converse com o concierge</h2>
-<div class="chat" id="chat">
-<div class="msg bot">Olá! Sou o concierge do seu imóvel 🏖️ Pergunte sobre check-in, Wi-Fi, churrasqueira, praias ou restaurantes.</div>
+<div id="chat"><div class="msg bot">Olá! Sou o Concierge da Praia Digital. Pergunte sobre cidades, preços, financiamento ou temporada no litoral. 👋</div></div>
+<div>
+<span class="chip" onclick="ask('Qual a cidade mais barata do litoral?')">💰 Cidade mais barata?</span>
+<span class="chip" onclick="ask('Melhor cidade para investir em temporada?')">📈 Melhor p/ temporada?</span>
+<span class="chip" onclick="ask('Como financiar com FGTS?')">🏦 Financiar com FGTS?</span>
+<span class="chip" onclick="ask('Quanto custa o m² em Bertioga?')">📡 m² em Bertioga?</span>
 </div>
-<div class="row">
-<input id="inp" placeholder="Ex: qual a senha do wi-fi?" onkeydown="if(event.key=='Enter')ask()">
-<button onclick="ask()">Enviar</button>
-</div>
+<input id="q" placeholder="Digite sua pergunta..." onkeydown="if(event.key==='Enter')go()">
+<button onclick="go()">Perguntar ➤</button>
 </div>
 <div class="card">
-<h2>O que o Concierge IA faz pelo anfitrião</h2>
-<ul>
-<li>🔑 Envia instruções de check-in e código da fechadura automaticamente</li>
-<li>📶 Responde dúvidas frequentes (Wi-Fi, churrasqueira, regras da casa)</li>
-<li>🍽️ Recomenda praias, restaurantes e passeios por cidade</li>
-<li>🚨 Escala emergências para você só quando necessário</li>
-</ul>
-<p>Funciona sobre os <a href="https://praiadigital.github.io/hermes-agents/">Hermes Agents</a> — com memória, multi-canal e supervisão humana.</p>
-<a class="cta" href="mailto:comercial@praia.digital?subject=Quero%20o%20Concierge%20IA">Quero no meu imóvel</a>
-<a class="cta" href="https://praiadigital.github.io/area-anfitriao/">Ver Área do Anfitrião</a>
+<h2>Versão completa</h2>
+<p>Esta é uma demo offline. O assistente completo está em <a href="https://praia.digital/">praia.digital</a> — e para imobiliárias, os <a href="https://praiadigital.github.io/hermes-agents/">Hermes Agents</a> automatizam todo o atendimento multicanal.</p>
 </div>
 </div>
-<footer>Parte da rede <a href="https://praia.digital/">praia.digital</a> · <a href="https://praiadigital.github.io/apps/">Todos os apps</a></footer>
+<footer>Parte da rede <a href="https://praiadigital.github.io/apps/">Apps Praia Digital</a> · <a href="https://praia.digital/">praia.digital</a></footer>
 <script>
 const kb=[
-[/wi-?fi|internet|senha/i,'📶 Wi-Fi: rede "PraiaGuest_5G", senha: <strong>bemvindo2026</strong>. O roteador fica na sala, atrás da TV.'],
-[/check-?in|chegada|entrada|chave/i,'🔑 Check-in a partir das 14h: a fechadura eletrônica usa o código enviado no seu WhatsApp. Estacionamento: vaga 12, subsolo.'],
-[/check-?out|saída/i,'🧳 Check-out até 11h. Deixe as chaves na mesa e feche a porta — ela trava sozinha.'],
-[/churras/i,'🍖 A churrasqueira da área comum exige reserva no app do condomínio (menu "Reservas"). Carvão está no armário da varanda.'],
-[/praia|mar|praiana/i,'🏖️ A praia mais próxima fica a 300m (saída pela portaria dos fundos). Quiosque recomendado: "Maré Alta", nº 42.'],
-[/restaurante|comer|comida|pizza/i,'🍽️ Perto daí: Cantina do Mar (frutos do mar), Pizzaria Onda (delivery 13 99999-0000) e o café Sunrise abre 7h.'],
-[/emerg|problema|vazamento|luz|água/i,'🚨 Sinto muito! Já notifiquei o anfitrião e o zelador (Sr. Paulo). Emergências: SAMU 192, Bombeiros 193.'],
-[/farmácia|mercado|hospital/i,'🏪 Mercado PraiaFácil (24h, 400m), farmácia DrogMar (200m) e UPA a 8 min de carro.']
-];
-function ask(){
-const el=document.getElementById('inp'),t=el.value.trim();if(!t)return;
-const c=document.getElementById('chat');
-c.innerHTML+=`<div class="msg user">${t}</div>`;el.value='';
-const hit=kb.find(([r])=>r.test(t));
-setTimeout(()=>{c.innerHTML+=`<div class="msg bot">${hit?hit[1]:'Boa pergunta! Encaminhei ao anfitrião, que responde em instantes. Enquanto isso, posso ajudar com Wi-Fi, check-in, praias ou restaurantes? 😊'}`;c.scrollTop=c.scrollHeight;},400);
-}
+['barata','As cidades com menor preço/m² são Peruíbe (~R$ 3.800), Mongaguá (~R$ 4.200) e Itanhaém (~R$ 4.500). Compare no Radar m²: praiadigital.github.io/radar-m2/'],
+['invest','Para temporada, Praia Grande lidera em rental yield para aptos 1–2 dorm. Guarujá e Riviera têm diárias premium. Simule: praiadigital.github.io/simulador-roi/'],
+['fgts','Com FGTS: taxas ~9% a.a., até 90% do imóvel, parcela máx. ~30% da renda. Veja o Simulador de Crédito: praiadigital.github.io/simulador-credito/ e o guia: praia.digital/blog/fgts-financiamento-sbpe-mcmv-imovel-litoral-2026.html'],
+['bertioga','Bertioga: ~R$ 7.400/m² com valorização de ~8,9% a.a. — a maior do litoral. Leia: praia.digital/blog/bertioga-crescendo-transformacao-2026.html'],
+['temporada','Alta temporada (dez–fev): ocupação 90–100%, diária até 3x. Cadastre seu imóvel na Área do Anfitrião: praiadigital.github.io/area-anfitriao/'],
+['mcmv','Minha Casa Minha Vida: subsídio até R$ 47,5 mil, faixas até R$ 350 mil. Simule em praiadigital.github.io/simulador-credito/'],
+['riviera','Riviera de São Lourenço: ~R$ 18.500/m², segurança e infraestrutura premium. Detalhes: praia.digital/blog/riviera-sao-lourenco-seguranca-infraestrutura-valorizacao-2026.html']];
+function reply(q){q=q.toLowerCase();
+for(const [k,v] of kb){if(q.includes(k))return v;}
+return 'Boa pergunta! Para análises completas, visite o Guia do Litoral (praiadigital.github.io/guia-litoral/) ou fale com a assistente completa em praia.digital.';}
+function add(t,c){const d=document.createElement('div');d.className='msg '+c;d.textContent=t;const ch=document.getElementById('chat');ch.appendChild(d);ch.scrollTop=ch.scrollHeight;}
+function go(){const el=document.getElementById('q');if(!el.value.trim())return;ask(el.value);el.value='';}
+function ask(q){add(q,'user');setTimeout(()=>add(reply(q),'bot'),400);}
 </script>
 </body>
 </html>
